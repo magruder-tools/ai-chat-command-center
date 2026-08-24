@@ -1,0 +1,48 @@
+{
+  "manifest_version": 3,
+  "name": "AI Chat Command Center",
+  "short_name": "Command Center",
+  "description": "A local-first command center for ChatGPT and Claude conversations you choose to track.",
+  "version": "0.3.1",
+  "minimum_chrome_version": "116",
+  "action": {
+    "default_title": "Open AI Chat Command Center",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png",
+      "48": "icons/icon-48.png",
+      "128": "icons/icon-128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://chatgpt.com/*", "https://claude.ai/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "permissions": ["storage", "tabs", "tabGroups", "scripting"],
+  "host_permissions": ["https://chatgpt.com/*", "https://claude.ai/*"],
+  "commands": {
+    "toggle-command-center": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+Space",
+        "mac": "Command+Shift+Space"
+      },
+      "description": "Toggle between Command Center and the most recent tracked chat"
+    }
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'none'; base-uri 'none'; frame-src 'none'"
+  }
+}
