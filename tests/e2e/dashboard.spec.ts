@@ -52,6 +52,8 @@ test("shows discovered ChatGPT and Claude tabs for review", async ({ page }) => 
 });
 
 test("slash focuses search and keyboard navigation exposes focus", async ({ page }) => {
+  await expect(page.getByText("Command Center", { exact: true })).toBeVisible();
+  await page.locator("body").click({ position: { x: 900, y: 850 } });
   await page.keyboard.press("/");
   await expect(page.getByRole("searchbox", { name: "Search chats" })).toBeFocused();
   await page.keyboard.press("Escape");
